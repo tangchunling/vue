@@ -1,0 +1,1 @@
+export const api = "http://tym.taoyumin.cn";
