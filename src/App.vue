@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
 	  <header class="r-head">
   		微信公众后台管理系统
 	  </header>
