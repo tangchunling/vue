@@ -89,13 +89,22 @@ router.beforeEach((to, from, next) => {
 	    // this route requires auth, check if logged in
 	    // if not, redirect to login page.
 	    console.log(islogin())
-	    if (!islogin()) {
-	      next({
-	        path: '/login'
-	      })
-	    } else {
-	      next()
-	    }
+	    // if (!islogin()) {
+	    //   next({
+	    //     path: '/login'
+	    //   })
+	    // } else {
+	    //   next()
+	    // }
+			islogin(function(val){
+				if(val){
+					next()
+				}else{
+					next({
+						path:'login'
+					});
+				}
+			})
 	  } else {
 	    next() // make sure to always call next()!
 	  }
