@@ -31,7 +31,9 @@ export default {
 	  		this.$http.post(api+"/index.php?r=user/login",_data,{credentials: true}).then((response) => {
 	  			console.log(response.body);
 	  			if(response.body.state == 1000){
-	  				self.$router.push('/goods')
+	  				self.$emit('namechild',self.name);
+	  				self.$router.push('/goods');
+	  				
 	  			}
 	  		},(response) => {
 	  			

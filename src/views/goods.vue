@@ -139,7 +139,7 @@ export default {
   		var self = this;
   		this.$http.post(api+'/index.php?r=search/search',_data).then((response) => {
   				var data = JSON.parse(response.body);
-  				this.isShow = true;
+  				self.isShow = true;
   				console.log(data)
 				if(data.state == 1000){
 					if(self.page == 1){
@@ -160,7 +160,7 @@ export default {
 			    }
 		
 		  }, (response) => {
-		  	this.isShow = true;
+		  	self.isShow = true;
 		    // error callback
 		  });
   		

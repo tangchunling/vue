@@ -1,7 +1,7 @@
 <template>
   <div>
 	  <header class="r-head">
-  		微信公众后台管理系统
+  		微信公众后台管理系统<div class="loginright"><label >{{name}}</label><span @click="loginout()">登出</span></div>
 	  </header>
 	    <div class="row">
 		  <div class="col-xs-2">
@@ -30,11 +30,15 @@
 			  		<li>
 			  			<router-link to="uploadcode">上传二维码</router-link>
 			  		</li>
+			  		<h2>微信</h2>
+			  		<li>
+			  			<router-link to="distribution">群管理</router-link>
+			  		</li>
 			  	</ul>
 		  	</div>
 		  </div>
 		  <div class="col-xs-10 rcontent">
-		  	<router-view></router-view>
+		  	<router-view v-on:namechild="getname"></router-view>
 		  </div>
 	  </div>
   </div>
@@ -42,6 +46,36 @@
 
 <script>
 require('./assets/common.css');
+import {api,islogin} from './assets/js/common';
+
+export default {
+	data(){
+		return {name:""}
+	},
+	methods:{
+		loginout:function(){
+			var self = this;
+			this.$http.get(api+"/index.php?r=user/logout",{credentials: true}).then((response) => {
+				console.log(response.body)
+				if(response.body.state == 1000){
+					self.$router.push('/login');
+					self.name = ""
+				}
+			},(response) => {
+				
+			})
+		},
+		getname:function(name){
+			this.name=name;
+		}
+	},
+	created:function(){
+		var self = this;
+		islogin(function(val){
+			if(val) self.name = val.data.userName;
+		})
+	}
+}
 </script>
 <style>
 html,body{height: 100%;color:#666;}
@@ -51,4 +85,7 @@ html,body{height: 100%;color:#666;}
 .rslider ul li a{display: block;line-height: 40px;font-size: 14px;padding:0 20px;color:#666}
 .rslider ul h2{line-height: 40px;background: #f1f2f4;color:#444;padding:0 20px;}
 .rcontent{padding:30px;}
+.loginright{display: inline-block;float: right;}
+.loginright label{margin-right: 10px;}
+.loginright span{cursor: pointer;}
 </style>
