@@ -1,5 +1,7 @@
 
 export const api = "http://tym.taoyumin.cn";
+export const actapi = "http://activity.taoyumin.cn";
+
 export const islogin = function (callback) {
 	var is = false;
 	var xhr = function () {

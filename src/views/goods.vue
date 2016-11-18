@@ -28,14 +28,14 @@
 			   <thead>
 				   	<tr>
 				   		<th width="80">淘宝店名</th><th width="200">商品名称</th><th>商品图片</th><th>商品原价格</th><th>促销价</th><th>商品销量</th>
-				   		<th>用户返回佣金</th><th>淘口令</th><th width="80">短地址</th><th width="80">二维码</th><th width="80">优惠券名称</th><th>优惠券口令</th><th>优惠券开始时间</th><th>优惠券结束时间</th>
+				   		<th>用户返回佣金</th><th>佣金比例</th><th>淘口令</th><th width="80">短地址</th><th width="80">二维码</th><th width="80">优惠券名称</th><th>优惠券口令</th><th>优惠券开始时间</th><th>优惠券结束时间</th>
 			   		</tr>
 			   </thead>
 			   <!--<tbody>-->
 			   	<tbody v-for="item in goodsdata">
 				   	<tr>
 				   		<td><a v-bind:href="item.auctionUrl" target="_blank">{{item.shopTitle}}</a></td><td><a v-html='item.title' v-bind:href="item.shortLinkUrl" target="_blank"></a></td><td><img v-bind:src="item.pictUrl" alt="" /></td>
-				   		<td>{{item.reservePrice}}</td><td>{{item.zkPrice}}</td><td>{{item.biz30day}}</td><td>{{item.tkCommFee*0.5}}</td><td>{{item.taoToken}}</td>
+				   		<td>{{item.reservePrice}}</td><td>{{item.zkPrice}}</td><td>{{item.biz30day}}</td><td>{{item.tkCommFee}}</td><td>{{(item.tkCommFee/item.zkPrice).toFixed(2)}}</td><td>{{item.taoToken}}</td>
 				   		<td><p><a v-bind:href="item.shortLinkUrl" target="_blank">{{item.shortLinkUrl}}</a></p></td><td><img v-bind:src="item.qrCodeUrl"></td><td><p><a v-bind:href="item.couponLink" target="_blank">{{item.couponInfo}}</a></p></td><td>{{item.couponLinkTaoToken}}</td>
 				   		<td>{{item.couponEffectiveStartTime}}</td><td>{{item.couponEffectiveEndTime}}</td>
 				   	</tr>
@@ -140,7 +140,6 @@ export default {
   		this.$http.post(api+'/index.php?r=search/search',_data).then((response) => {
   				var data = JSON.parse(response.body);
   				self.isShow = true;
-  				console.log(data)
 				if(data.state == 1000){
 					if(self.page == 1){
 						self.goodsdata=data.data.data;
@@ -151,8 +150,6 @@ export default {
 							self.goodsdata.push(data.data.data[item]);
 						}
 					}				
-					
-					console.log(self.goodsdata)
 				}
 				else if(data.state == 1001)
 			    {
@@ -220,7 +217,6 @@ export default {
   		this.sellerId = sellerId;
   		this.$http.post(api+'/index.php?r=search/getticket',{sellerId:sellerId,auctionId:auctionId}).then((response) => {
   				var data = JSON.parse(response.body);
-  				console.log(data)
 				if(data.state == 1000){
 					self.youhuidata = data.data;
 				}

@@ -82,6 +82,62 @@ var router = new VueRouter(
 		  {
 		    path: '/adminlogin',
 		    component: require('./views/adminlogin.vue')
+		  },
+		  {
+		    path: '/activity',
+		    component: require('./views/activity/activity.vue'),
+		    auth: true,
+		    meta: {
+		      requiresAuth: true
+		    }
+		  },
+		  {
+		    path: '/actdetail',
+		    component: require('./views/activity/actdetail.vue'),
+		    auth: true,
+		    meta: {
+		      requiresAuth: true
+		    }
+		  },
+		  {
+		    path: '/actgoods',
+		    component: require('./views/activity/actgoods.vue'),
+		    auth: true,
+		    meta: {
+		      requiresAuth: true
+		    }
+		  },
+		  {
+		    path: '/updatetitle',
+		    component: require('./views/activity/updatetitle.vue'),
+		    auth: true,
+		    meta: {
+		      requiresAuth: true
+		    }
+		  },
+		  {
+		    path: '/update_navigation',
+		    component: require('./views/activity/update_navigation.vue'),
+		    auth: true,
+		    meta: {
+		      requiresAuth: true
+		    }
+		  },
+		  {
+		    path: '/updategoods',
+		    component: require('./views/activity/updategoods.vue'),
+		    auth: true,
+		    meta: {
+		      requiresAuth: true
+		    }
+		  },
+		  {
+		    path: '/updatebanner',
+		    component: require('./views/activity/updatebanner.vue'),
+		    auth: true,
+		    meta: {
+		      requiresAuth: true
+		    }
 		  }
 		]
 		
@@ -92,15 +148,15 @@ router.beforeEach((to, from, next) => {
 	if (to.matched.some(record => record.meta.requiresAuth)) {
 	    // this route requires auth, check if logged in
 	    // if not, redirect to login page.
-			islogin(function(val){
-				if(val){
-					next()
-				}else{
-					next({
-						path:'login'
-					});
-				}
-			})
+		islogin(function(val){
+			if(val){
+				next()
+			}else{
+				next({
+					path:'login'
+				});
+			}
+		})
 	  } else {
 	    next() // make sure to always call next()!
 	  }

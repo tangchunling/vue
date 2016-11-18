@@ -29,7 +29,6 @@ export default {
   			var _data = {userName:this.name,passWord:this.password};
   			var self = this;
 	  		this.$http.post(api+"/index.php?r=user/login",_data,{credentials: true}).then((response) => {
-	  			console.log(response.body);
 	  			if(response.body.state == 1000){
 	  				self.$emit('namechild',self.name);
 	  				self.$router.push('/goods');

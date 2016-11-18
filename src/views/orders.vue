@@ -17,6 +17,7 @@
 	    
 	  </div>
 	  <button type="button" class="btn btn-default" @click='getorder'>查询</button>
+	  <button type="button" class="btn btn-default" @click='upload'>下载</button>
 	</form>
 	<div class="ordercontent">
 		<template v-if="orderdata.length">
@@ -24,7 +25,7 @@
 			   <thead>
 				   	<tr>
 				   		<th>编号</th><th>订单编号</th><th>下单时间</th><th width="300">商品信息</th><th>商品单价</th><th>订单状态</th><th>订单类型</th>
-				   		<th>付款金额</th><th>结算金额</th><th>佣金金额</th>
+				   		<th>付款金额</th><th>结算金额</th><th>佣金金额</th><th>运营组</th>
 				   	</tr>	
 			   </thead>
 			   <tbody>
@@ -33,7 +34,7 @@
 			   				<td>{{item.id}}</td><td>{{item.orderId}}</td><td>{{formate(item.createTime)}}</td><td>{{item.goodsInf}}</td><td>{{item.goodsPrice}}</td>
 			   				<td v-if="item.goodsState == 1">订单成功</td><td v-if="item.goodsState == 2">待结算</td><td v-if="item.goodsState == 3">订单失败</td><td v-if="item.goodsState == 4">订单结算</td>
 			   				<td>{{item.goodsType}}</td><td>{{item.payMoney}}</td><td>{{item.settlementMoney}}</td>
-			   				<td>{{item.tkMoney}}</td>
+			   				<td>{{item.tkMoney}}</td><td>{{item.adName}}</td>
 			   			</tr>
 			   		</template>
 			   </tbody>
@@ -66,6 +67,13 @@ export default {
     }
   },
   methods:{
+  	upload:function(){
+  		var _data = {
+  			orderStartTime:new Date(this.order.orderStartTime).getTime(),
+  			orderEndTime:new Date(this.order.orderEndTime).getTime()
+  		}
+  		window.location.href = "http://tym.taoyumin.cn/index.php?r=data/exceldown&orderStartTime="+_data.orderStartTime+"&orderEndTime="+_data.orderEndTime;
+  	},
   	formate:function(t){
   		var d = new Date(t*1000);
   		var year = d.getFullYear();
